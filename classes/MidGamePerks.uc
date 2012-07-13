@@ -15,7 +15,7 @@ function ShowPanel(bool bShow) {
 }
 
 function OnPerkSelected(GUIComponent Sender) {
-    lb_PerkEffects.SetContent(class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()].default.LevelEffects[6]);
+    lb_PerkEffects.SetContent(class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()].default.LevelEffects[KFPlayerReplicationInfo(PlayerOwner().PlayerReplicationInfo).ClientVeteranSkillLevel]);
     lb_PerkProgress.List.PerkChanged(KFStatsAndAchievements, lb_PerkSelect.GetIndex());
 }
 
@@ -30,7 +30,6 @@ function bool OnSaveButtonClicked(GUIComponent Sender) {
         KFPlayerController(PC).SendSelectedVeterancyToServer();
         PC.SaveConfig();
         KFPlayerReplicationInfo(PC.PlayerReplicationInfo).ClientVeteranSkill= class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
-        KFPlayerReplicationInfo(PC.PlayerReplicationInfo).ClientVeteranSkillLevel= 6;
     }
     else {
         class'KFPlayerController'.static.StaticSaveConfig();

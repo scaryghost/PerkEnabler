@@ -15,7 +15,8 @@ function ShowPanel(bool bShow) {
 }
 
 function OnPerkSelected(GUIComponent Sender) {
-    lb_PerkEffects.SetContent(class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()].default.LevelEffects[KFPlayerReplicationInfo(PlayerOwner().PlayerReplicationInfo).ClientVeteranSkillLevel]);
+    lb_PerkEffects.SetContent(class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()]
+        .default.LevelEffects[KFPlayerReplicationInfo(PlayerOwner().PlayerReplicationInfo).ClientVeteranSkillLevel]);
     lb_PerkProgress.List.PerkChanged(KFStatsAndAchievements, lb_PerkSelect.GetIndex());
 }
 
@@ -23,13 +24,21 @@ function bool OnSaveButtonClicked(GUIComponent Sender) {
     local PlayerController PC;
 
     PC = PlayerOwner();
-    class'KFPlayerController'.default.SelectedVeterancy = class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
+    if (KFGameReplicationInfo(GetGRI()).bWaveInProgress) {
+        PC.ClientMessage("You can only change perks during trader time");
+        return false;
+    } else if (KFPlayerController(PC).bChangedVeterancyThisWave) {
+        PC.ClientMessage(KFPlayerController(PC).PerkChangeOncePerWaveString);
+        return false;
+    }
 
+    class'KFPlayerController'.default.SelectedVeterancy = class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
     if ( KFPlayerController(PC) != none ) {
         KFPlayerController(PC).SelectedVeterancy = class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
         KFPlayerController(PC).SendSelectedVeterancyToServer();
         PC.SaveConfig();
         KFPlayerReplicationInfo(PC.PlayerReplicationInfo).ClientVeteranSkill= class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
+        KFPlayerController(PC).bChangedVeterancyThisWave= true;
     }
     else {
         class'KFPlayerController'.static.StaticSaveConfig();

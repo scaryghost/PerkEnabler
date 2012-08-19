@@ -35,10 +35,13 @@ function bool OnSaveButtonClicked(GUIComponent Sender) {
     class'KFPlayerController'.default.SelectedVeterancy = class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
     if ( KFPlayerController(PC) != none ) {
         KFPlayerController(PC).SelectedVeterancy = class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
-        KFPlayerController(PC).SendSelectedVeterancyToServer();
         PC.SaveConfig();
         KFPlayerReplicationInfo(PC.PlayerReplicationInfo).ClientVeteranSkill= class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
         KFPlayerController(PC).bChangedVeterancyThisWave= true;
+
+        if( KFHumanPawn(PC.Pawn) != none ) {
+            KFHumanPawn(PC.Pawn).VeterancyChanged();
+        }
     }
     else {
         class'KFPlayerController'.static.StaticSaveConfig();

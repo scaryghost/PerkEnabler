@@ -45,13 +45,8 @@ function SaveSettings() {
         }
     }
 
-    class'KFPlayerController'.default.SelectedVeterancy = class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
-
-    if (KFPlayerController(PC) != none) {
-        KFPlayerController(PC).SelectedVeterancy = class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
-        KFPlayerController(PC).SendSelectedVeterancyToServer();
-        PC.SaveConfig();
-        KFPlayerReplicationInfo(PC.PlayerReplicationInfo).ClientVeteranSkill= class'KFGameType'.default.LoadedSkills[lb_PerkSelect.GetIndex()];
+    if (KFPlayerController(PC) != none ) {
+        PC.ConsoleCommand("mutate"@lb_PerkSelect.GetIndex());
     }
     else {
         class'KFPlayerController'.static.StaticSaveConfig();

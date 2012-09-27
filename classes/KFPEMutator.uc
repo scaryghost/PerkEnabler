@@ -11,14 +11,36 @@ function PostBeginPlay() {
     AddToPackageMap("KFPerkEnabler");
 }
 
+simulated function Tick(float DeltaTime) {
+    local KFPlayerController PC;
+ 
+    PC= KFPlayerController(Level.GetLocalPlayerController());
+    if (PC != None) {
+        PC.LobbyMenuClassString= "KFPerkEnabler.LobbyMenu_KFPE";
+        PC.ClientCloseMenu(true, true);
+        PC.ShowLobbyMenu();
+    }
+    Disable('Tick');    
+}
+
 function bool CheckReplacement(Actor other, out byte bSuperRelevant) {
-    if (KFPlayerController(Other) != none) {
-        KFPlayerController(Other).LobbyMenuClassString= "KFPerkEnabler.LobbyMenu_KFPE";
-    } else if (KFPlayerReplicationInfo(Other) != none) {
-        KFPlayerReplicationInfo(Other).ClientVeteranSkill= class'KFGameType'.default.LoadedSkills[rand(class'KFGameType'.default.LoadedSkills.Length)];
+    if (KFPlayerReplicationInfo(Other) != none) {
         KFPlayerReplicationInfo(Other).ClientVeteranSkillLevel= perkLevel;
     }
     return true;
+}
+
+function Mutate(string Command, PlayerController Sender) {
+    if (KFGameReplicationInfo(Level.GRI).bWaveInProgress) {
+        Sender.ClientMessage("You can only change perks during trader time");
+    } else if (KFPlayerController(Sender).bChangedVeterancyThisWave) {
+        Sender.ClientMessage(KFPlayerController(Sender).PerkChangeOncePerWaveString);
+    } else {
+        KFPlayerReplicationInfo(Sender.PlayerReplicationInfo).ClientVeteranSkill= class'KFGameType'.default.LoadedSkills[int(command)];
+        KFPlayerController(Sender).bChangedVeterancyThisWave= true;
+        KFHumanPawn(Sender.Pawn).VeterancyChanged();
+        Sender.SaveConfig();
+    }
 }
 
 static function FillPlayInfo(PlayInfo PlayInfo) {

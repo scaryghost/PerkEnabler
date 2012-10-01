@@ -8,5 +8,5 @@ defaultproperties {
         bScaleToParent=False
         OnPreDraw=LobbyFooter.InternalOnPreDraw
     End Object
-    t_Footer=LobbyFooter_KFPE'KFPerkEnabler.LobbyMenu_KFPE.LobbyFooter'
+    t_Footer=LobbyFooter_KFPE'PerkEnabler.LobbyMenu_KFPE.LobbyFooter'
 }

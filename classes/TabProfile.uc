@@ -66,5 +66,5 @@ defaultproperties {
         WinWidth=0.318980
         WinHeight=0.654653
     End Object
-    lb_PerkSelect=PerkSelectListBox'KFPerkEnabler.TabProfile.PerkSelectListBox'
+    lb_PerkSelect=PerkSelectListBox'PerkEnabler.TabProfile.PerkSelectListBox'
 }

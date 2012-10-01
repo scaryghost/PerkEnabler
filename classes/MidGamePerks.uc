@@ -42,5 +42,5 @@ defaultproperties {
         WinWidth=0.437166
         WinHeight=0.742836
     End Object
-    lb_PerkSelect=PerkSelectListBox'KFPerkEnabler.MidGamePerks.PerkSelectListBox'
+    lb_PerkSelect=PerkSelectListBox'PerkEnabler.MidGamePerks.PerkSelectListBox'
 }

@@ -7,5 +7,5 @@ defaultproperties {
         WinWidth=0.980000
         WinHeight=0.960000
     End Object
-    ProfilePanel=TabProfile'KFPerkEnabler.ProfilePage.Profile'
+    ProfilePanel=TabProfile'PerkEnabler.ProfilePage.Profile'
 }

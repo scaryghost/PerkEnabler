@@ -40,7 +40,7 @@ function bool OnFooterClick(GUIComponent Sender) {
         PC.ClientOpenMenu("KFGUI.KFSettingsPage", false);
     }
     else if ( Sender == b_Perks ) {
-        PC.ClientOpenMenu("KFPerkEnabler.ProfilePage", false);
+        PC.ClientOpenMenu("PerkEnabler.ProfilePage", false);
     }
 
     return false;

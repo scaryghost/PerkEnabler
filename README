@@ -10,14 +10,14 @@ progression is not saved.
 
 +Check Sum
 The check sum for the package is generated with the following command from the system folder:
-         ucc.exe Editor.CheckSumPackageCommandlet KFPerkEnabler.u
+         ucc.exe Editor.CheckSumPackageCommandlet PerkEnabler.u
 
 If the output does not match any of the hashes in this README, you do not have an official version from me.
 
-v1.0    b701016999a2fb26ba2f02b89c7d0b01
+v1.0    5a5e37855dbe815396435355c961ad5c
 
 +Download
-https://dl.dropbox.com/u/16251678/KFPerkEnabler_v1.0.zip
+https://dl.dropbox.com/u/16251678/PerkEnabler_v1.0.zip
 
 +Install
 Copy the contents of the system folder to your Killing Floor system folder.  In the mutator configuration menu, set 

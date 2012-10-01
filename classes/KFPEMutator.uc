@@ -7,8 +7,8 @@ function PostBeginPlay() {
         Destroy();
         return;
     }
-    DeathMatch(Level.Game).LoginMenuClass= "KFPerkEnabler.LoginMenu";
-    AddToPackageMap("KFPerkEnabler");
+    DeathMatch(Level.Game).LoginMenuClass= "PerkEnabler.LoginMenu";
+    AddToPackageMap("PerkEnabler");
 }
 
 simulated function Tick(float DeltaTime) {
@@ -16,7 +16,7 @@ simulated function Tick(float DeltaTime) {
  
     PC= KFPlayerController(Level.GetLocalPlayerController());
     if (PC != None) {
-        PC.LobbyMenuClassString= "KFPerkEnabler.LobbyMenu_KFPE";
+        PC.LobbyMenuClassString= "PerkEnabler.LobbyMenu_KFPE";
         PC.ClientCloseMenu(true, true);
         PC.ShowLobbyMenu();
     }
@@ -47,7 +47,7 @@ function Mutate(string Command, PlayerController Sender) {
 
 static function FillPlayInfo(PlayInfo PlayInfo) {
     Super.FillPlayInfo(PlayInfo);
-    PlayInfo.AddSetting("KFPerkEnabler", "perkLevel", "Perk Level", 0, 0, "Text");
+    PlayInfo.AddSetting("PerkEnabler", "perkLevel", "Perk Level", 0, 0, "Text");
 }
 
 static event string GetDescriptionText(string property) {

@@ -7,5 +7,5 @@ function InitComponent(GUIController MyController, GUIComponent MyComponent) {
 }
 
 defaultproperties {
-    Panels(1)=(ClassName="KFPerkEnabler.MidGamePerks",Caption="Perks",Hint="Select your current Perk")
+    Panels(1)=(ClassName="PerkEnabler.MidGamePerks",Caption="Perks",Hint="Select your current Perk")
 }

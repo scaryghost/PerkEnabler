@@ -31,15 +31,17 @@ function bool CheckReplacement(Actor other, out byte bSuperRelevant) {
 }
 
 function Mutate(string Command, PlayerController Sender) {
-    if (KFGameReplicationInfo(Level.GRI).bWaveInProgress) {
-        Sender.ClientMessage("You can only change perks during trader time");
-    } else if (KFPlayerController(Sender).bChangedVeterancyThisWave) {
-        Sender.ClientMessage(KFPlayerController(Sender).PerkChangeOncePerWaveString);
-    } else {
+    if (!KFGameReplicationInfo(Level.GRI).bWaveInProgress || 
+            KFGameReplicationInfo(Level.GRI).bWaveInProgress && !KFPlayerController(Sender).bChangedVeterancyThisWave) {
         KFPlayerReplicationInfo(Sender.PlayerReplicationInfo).ClientVeteranSkill= class'KFGameType'.default.LoadedSkills[int(command)];
+        KFPlayerController(Sender).SelectedVeterancy= class'KFGameType'.default.LoadedSkills[int(command)];
         KFPlayerController(Sender).bChangedVeterancyThisWave= true;
         KFHumanPawn(Sender.Pawn).VeterancyChanged();
         Sender.SaveConfig();
+    } else if (KFGameReplicationInfo(Level.GRI).bWaveInProgress) {
+        Sender.ClientMessage("You can only change perks during trader time");
+    } else {
+        Sender.ClientMessage(KFPlayerController(Sender).PerkChangeOncePerWaveString);
     }
 }
 
